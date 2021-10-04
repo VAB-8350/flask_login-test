@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head class="font-mono">
+    <meta charset="UTF-8">
+    <!-- BLOQUE DE TITULO -->
+    <title>{% block title %}{% endblock %}</title>
+    <!-- LLAMAMOS UNA HOJA DE ESTILOS ESTÁTICA -->
+    <link rel="stylesheet" href='{{ url_for("static", filename="base.css") }}'>
+
+    <!-- railwindcss -->
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <!-- railwindcss -->
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <!-- fontawesome -->
+
+</head>
+<body>
+    <div class="flex flex-col h-screen w-screen">
+        <div class="w-full p-4 bg-yellow-500 opacity-75">
+            <ul class="user-info flex">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                {% if current_user.is_anonymous %}
+                    <div class="ml-auto">
+                        <li><a href="{{ url_for('login') }}">Login</a></li>
+                        <li> | </li>
+                        <li><a href="{{ url_for('show_signup_form') }}">Registrar</a></li>
+                    </div>
+                {% else %}
+                    <div class="ml-auto">
+                        <li>{{ current_user.name }}</li>
+                        <li> | </li>
+                        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    </div>
+                {% endif %}
+            </ul>
+        </div>
+        <!-- BLOQUE DE CONTENIDO -->
+        {% block content %}
+        
+        {% endblock %}
+    </div>
+</body>
+</html>

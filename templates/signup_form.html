@@ -1,0 +1,49 @@
+<!-- CARGAMOS COMO EXTEND LA PLANTILLA BASE -->
+{% extends "base_template.html" %}
+<!-- CARGAMOS CONTENIDO EN EL BLOQUE DE TITULO -->
+{% block title %}Registro de usuarios{% endblock %}
+<!-- CARGAMOS CONTENIDO EN EL BLOQUE DE CONTENIDOS -->
+{% block content %}
+    <!-- PARA EVITAR QUE EL BROWSER VALIDE LOS CAMPOS POR NOSOTROS, AÑADIMOS EL ATRIBUTO novalidate -->
+    <div class="flex h-full w-full bg_login">
+        <div class="flex w-2/3 h-4/5 my-auto mx-auto bg-gray-500 rounded-2xl opacity-80">
+            <div class="w-1/2 form-register rounded-l-lg"></i></div>
+            <div class="flex flex-col mx-auto my-auto w-1/2">
+                <div class="flex mx-auto text-center text-7xl">
+                    <h2 class="my-auto text-4xl"><i class="fas fa-address-card "></i>  Sign In</h2>
+                </div>
+                <form action="" method="post" novalidate class="flex flex-col gap-5 pl-10 pr-10 h-full mt-10">
+                    <!-- LA LÍNEA {{ form.hidden_tag() }} AÑADE TODOS LOS CAMPOS DE TIPO HIDDEN DEL FORM SI LOS HAY. Flask-WTF GENERA PARA TODAS LAS INSTANCIAS DE LA CLASE FlaskForm UN CAMPO OCULTO QUE PROTEGE LA APP DE ATAQUES CSRF -->
+                    {{ form.hidden_tag() }}
+                    <div class="flex flex-col">
+                        {{ form.name.label }}
+                        {{ form.name(size=64, class="bg-gray-500 border-b-2 border-yellow-400 w-full") }}<br>
+                        <!-- LE MOSTRAMOS AL USUARIO EL ERROR DE VALIDACIÓN -->
+                        {% for error in form.name.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="flex flex-col">
+                        {{ form.email.label }}
+                        {{ form.email (class="bg-gray-500 border-b-2 border-yellow-400 w-full") }}<br>
+                        <!-- LE MOSTRAMOS AL USUARIO EL ERROR DE VALIDACIÓN -->
+                        {% for error in form.email.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="flex flex-col">
+                        {{ form.password.label }}
+                        {{ form.password (class="bg-gray-500 border-b-2 border-yellow-400 w-full")}}<br>
+                        <!-- LE MOSTRAMOS AL USUARIO EL ERROR DE VALIDACIÓN -->
+                        {% for error in form.password.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center">
+                        {{ form.submit(class="bg-yellow-500 px-4 py-1 rounded-md") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
